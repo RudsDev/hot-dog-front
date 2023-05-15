@@ -1,0 +1,81 @@
+@import './mixins/btn-custom_mixin';
+
+#main-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	position: fixed;
+	font-family: $font-family;
+	font-size: $font-size;
+	color: $font-color;
+	#components-area-component {
+		background-color: white;
+		flex-grow: 0;
+		width: 100%;
+		#components-content {
+			width: 100%;
+			height: 100%;
+			align-content: center;
+			padding: 5px;
+			background-color: rgb(239, 245, 250);
+			#main {
+				width: 100%;
+				height: 100%;
+				overflow-x: auto;
+			}
+		}
+	}
+}
+
+main {
+	height: 100%;
+	.component-view-root {
+		height: 100%;
+		padding: 5px;
+		display: flex;
+		align-items: center;
+	}
+	.form-container {
+		width: 100%;
+	}
+	.container-internal-components {
+		display: flex;
+		padding: 5px;
+		column-gap: 15px;
+		.right {
+			min-width: 400px;
+			.box {
+				height: 100%;
+			}
+		}
+		.center {
+			flex-grow: 1;
+			.control {
+				&.button-container {
+					display: flex;
+					justify-content: space-between;
+				}
+			}
+		}
+	}
+	.mini-list {
+		height: 300px;
+		margin-bottom: 15px;
+		display: flex;
+		justify-content: center;
+		p {
+			font-size: $font-size-big;
+		}
+	}
+	.button-container {
+		display: flex;
+		justify-content: space-between;
+		column-gap: 10px
+	}
+	button, span {
+		@include btn-custom;
+	}
+}
+
+@import 'node_modules/bulma/bulma.sass';
