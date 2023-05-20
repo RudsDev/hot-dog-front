@@ -56,16 +56,14 @@
 				</div>
 			</form>
 
-			<div class="box">
-				<generic-list
-					:key="ingredientes.length"
-					:items="ingredientes"
-					:dataMap="dataMap"
-					:editFunction="'ingredientes/setIngrediente'"
-					:removeFunction="'ingredientes/removeIngrediente'"
-					:monetary="true"
-				/>
-			</div>
+			<generic-panel-list
+				:key="ingredientes.length"
+				:items="ingredientes"
+				:headerText="'Ingredientes'"
+				:removeFunction="remove"
+				:editFunction="edit"
+				:keyMap="dataMap"
+			/>
 		</div>
 	</div>
 </template>
@@ -73,7 +71,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
-import GenericList from '@/components/shared/GenericList.vue'
+import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/ingrediente.js'
 import notification from '@/mixins/notificationsMixin.js'
@@ -81,7 +79,7 @@ import notification from '@/mixins/notificationsMixin.js'
 export default {
 	nome: 'CreateIngrediente',
 	components: {
-		GenericList,
+		GenericPanelList,
 		ErrorsMessages
 	},
 	mixins: [validation, notification],
@@ -97,9 +95,8 @@ export default {
 			submitted: true,
 			loadingSubmit: true,
 			dataMap: [
-				{ header: 'Nome', keys: ['nome'] },
-				{ header: 'Preco R$', keys: ['preco'] },
-				{ header: 'Ações', keys: [] }
+				{ value: 'nome', money: false },
+				{ value: 'preco', money: true }
 			],
 			errors: null
 		}
@@ -162,7 +159,9 @@ export default {
 			'removeIngrediente',
 			'getIngredientes',
 			'setIngredienteField',
+			'setIngrediente',
 			'resetIngredienteFields',
+			'removeIngrediente',
 			'updateIngrediente'
 		]),
 		async save() {
@@ -182,6 +181,13 @@ export default {
 			const { id, preco, nome } = this
 			const payload = { id, preco, nome }
 			return payload
+		},
+		async remove(item) {
+			const resp = await this.removeIngrediente(item.id)
+			this.apiResponseNotification(resp)
+		},
+		async edit(item) {
+			await this.setIngrediente(item)
 		},
 		cancelEdit() {
 			this.resetIngredienteFields()
