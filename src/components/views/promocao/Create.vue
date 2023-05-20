@@ -137,7 +137,8 @@ import notification from '@/mixins/notificationsMixin.js'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import GenericList from '@/components/shared/GenericList.vue'
 import GenericPanelAdder from '@/components/shared/GenericPanelAdder.vue'
-import { calculaTotal, currencyFormat } from '@/helpers/calculo'
+import { calculaTotal } from '@/helpers/calculo'
+import { currencyFormat } from '@/helpers/moeda'
 
 export default {
 	nome: 'CreatePromocao',

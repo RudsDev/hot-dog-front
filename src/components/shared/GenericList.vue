@@ -42,7 +42,7 @@ import store from '@/store/store'
 import GenericTableSmall from '@/components/shared/GenericTableSmall.vue'
 import ItemEdit from '@/components/shared/ItemEdit.vue'
 import ItemRemove from '@/components/shared/ItemRemove.vue'
-import { currencyFormat } from '@/helpers/calculo'
+import { currencyFormat } from '@/helpers/moeda'
 
 export default {
 	name: 'GenericList',

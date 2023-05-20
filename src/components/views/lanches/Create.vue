@@ -105,7 +105,8 @@ import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/lanche.js'
 import notification from '@/mixins/notificationsMixin.js'
 import GenericPanelAdder from '@/components/shared/GenericPanelAdder.vue'
-import { calculaTotal, currencyFormat } from '@/helpers/calculo'
+import { calculaTotal } from '@/helpers/calculo'
+import { currencyFormat } from '@/helpers/moeda'
 
 export default {
 	nome: 'CreateLanche',

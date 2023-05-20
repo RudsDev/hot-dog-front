@@ -25,7 +25,7 @@
 
 <script>
 import GenericPanelItem from './GenericPanelItem.vue'
-import { currencyFormatBr } from '@/helpers/calculo'
+import { currencyFormatBr } from '@/helpers/moeda'
 export default {
 	name: 'GenericPanelList',
 	components: { GenericPanelItem },
