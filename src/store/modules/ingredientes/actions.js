@@ -1,5 +1,4 @@
 import { ingredientes } from '@/services/ingredientes'
-import notification from '@/mixins/notificationsMixin.js'
 
 export default {
 	async createIngrediente({ commit }, payload) {
@@ -17,9 +16,7 @@ export default {
 	},
 	async removeIngrediente(context, payload) {
 		const resp = await ingredientes.delete(payload)
-		//TODO - Ponto de notificação
-		console.log(notification)
-		notification.methods.apiResponseNotification(resp)
+		return resp
 	},
 	setIngredienteField(context, payload = { value: undefined, field: '' }) {
 		const { field, value } = payload
