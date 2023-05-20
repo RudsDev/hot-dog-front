@@ -1,6 +1,6 @@
 const options = {
-	// style: 'currency',
-	// currency: 'BRL',
+	style: 'currency',
+	currency: 'BRL',
 	minimumFractionDigits: 2,
 	maximumFractionDigits: 2
 }
@@ -13,6 +13,13 @@ const calculaTotal = items => {
 
 const currencyFormat = value => {
 	if (!value) return
+	const { maximumFractionDigits, minimumFractionDigits } = options
+	const config = { maximumFractionDigits, minimumFractionDigits }
+	return value.toLocaleString(locale, config)
+}
+
+const currencyFormatBr = value => {
+	if (!value) return
 	return value.toLocaleString(locale, options)
 }
 
@@ -20,4 +27,4 @@ const unCurrency = currency => {
 	return Number.parseFloat(currency)
 }
 
-export { calculaTotal, currencyFormat, unCurrency }
+export { calculaTotal, currencyFormat, currencyFormatBr, unCurrency }
