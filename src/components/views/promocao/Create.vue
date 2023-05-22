@@ -111,17 +111,14 @@
 					</div>
 
 					<div class="right">
-						<div class="box">
-							<generic-list
-								:key="promocoes.length"
-								:items="promocoes"
-								:dataMap="dataMap"
-								:showActions="true"
-								:editFunction="'promocoes/editPromocao'"
-								:removeFunction="'promocoes/removePromocao'"
-								:monetary="true"
-							/>
-						</div>
+						<generic-panel-list
+							:key="promocoes.length"
+							:items="promocoes"
+							:headerText="'Promoções'"
+							:removeFunction="remove"
+							:editFunction="edit"
+							:keyMap="dataMap"
+						/>
 					</div>
 				</div>
 			</form>
@@ -132,6 +129,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
+import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
 import validation from '@/mixins/validations/promocao.js'
 import notification from '@/mixins/notificationsMixin.js'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
@@ -142,7 +140,12 @@ import { currencyFormat } from '@/helpers/moeda'
 
 export default {
 	nome: 'CreatePromocao',
-	components: { ErrorsMessages, GenericList, GenericPanelAdder },
+	components: {
+		ErrorsMessages,
+		GenericList,
+		GenericPanelList,
+		GenericPanelAdder
+	},
 	mixins: [validation, notification],
 	beforeRouteEnter(to, from, next) {
 		next(vm => {
@@ -153,9 +156,8 @@ export default {
 		return {
 			valor: 0,
 			dataMap: [
-				{ header: 'Nome', keys: ['nome'] },
-				{ header: 'Preco R$', keys: ['preco'] },
-				{ header: 'Ações', keys: [] }
+				{ value: 'nome', money: false },
+				{ value: 'preco', money: true }
 			],
 			dataMapLan: [
 				{ header: 'Nome', keys: ['nome'] },
@@ -246,6 +248,8 @@ export default {
 			'getPromocoes',
 			'getLanches',
 			'createPromocao',
+			'removePromocao',
+			'editPromocao',
 			'updatePromocao',
 			'resetPromocaoEdit'
 		]),
@@ -265,6 +269,13 @@ export default {
 				.filter(l => l.qtd > 0)
 				.map(l => ({ lanche: l.id, quantidade: l.qtd }))
 			return { id, nome, tipoCalculo, baseCalculo, itens }
+		},
+		async remove(item) {
+			const resp = await this.removePromocao(item.id)
+			this.apiResponseNotification(resp)
+		},
+		async edit(item) {
+			await this.editPromocao(item)
 		},
 		cancelEdit() {
 			this.resetPromocaoEdit()

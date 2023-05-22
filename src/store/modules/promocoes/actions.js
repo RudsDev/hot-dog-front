@@ -7,16 +7,12 @@ export default {
 	},
 	async updatePromocao({ commit }, payload) {
 		const resp = await promocoes.update(payload.id, payload)
-		//TODO - Ponto de notificação
-		const promocao = resp.data
-		if (promocao) {
-			commit(`SET_PROMOCAO`, promocao)
-		}
+		if (resp.data) commit(`SET_PROMOCAO`, resp.data)
+		return resp
 	},
 	async removePromocao(context, payload) {
 		const resp = await promocoes.delete(payload)
-		//TODO - Ponto de notificação
-		console.log(resp)
+		return resp
 	},
 	setPromocaoField(context, payload = { value: undefined, field: '' }) {
 		const { field, value } = payload
