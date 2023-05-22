@@ -70,6 +70,8 @@ export default {
 				width: 150px;
 				position: relative;
 				margin: 0;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 				&:last-of-type {
 					text-align: center;
 				}
