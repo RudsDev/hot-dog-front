@@ -79,17 +79,14 @@
 					</div>
 
 					<div class="right">
-						<div class="box">
-							<generic-list
-								:key="lanches.length"
-								:items="lanches"
-								:dataMap="dataMap"
-								:editFunction="'lanches/editLanche'"
-								:removeFunction="'lanches/removeLanche'"
-								:showActions="true"
-								:monetary="true"
-							/>
-						</div>
+						<generic-panel-list
+							:key="lanches.length"
+							:items="lanches"
+							:headerText="'Lanches'"
+							:removeFunction="remove"
+							:editFunction="edit"
+							:keyMap="dataMap"
+						/>
 					</div>
 				</div>
 			</form>
@@ -100,6 +97,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
+import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
 import GenericList from '@/components/shared/GenericList.vue'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/lanche.js'
@@ -112,6 +110,7 @@ export default {
 	nome: 'CreateLanche',
 	components: {
 		GenericList,
+		GenericPanelList,
 		ErrorsMessages,
 		GenericPanelAdder
 	},
@@ -128,9 +127,8 @@ export default {
 			submitted: true,
 			loadingSubmit: true,
 			dataMap: [
-				{ header: 'Nome', keys: ['nome'] },
-				{ header: 'Preco R$', keys: ['preco'] },
-				{ header: 'Ações', keys: [] }
+				{ value: 'nome', money: false },
+				{ value: 'preco', money: true }
 			],
 			dataMapIng: [
 				{ header: 'Nome', keys: ['nome'] },
@@ -198,8 +196,10 @@ export default {
 			'createLanche',
 			'setLancheField',
 			'resetLancheFields',
+			'editLanche',
 			'getLanches',
 			'resetLancheEdit',
+			'removeLanche',
 			'updateLanche'
 		]),
 		...mapActions('ingredientes', ['getIngredientes']),
@@ -225,6 +225,13 @@ export default {
 			const payload = { id, nome, preco: this.total, ingredientes }
 			id && console.log(payload)
 			return payload
+		},
+		async remove(item) {
+			const resp = await this.removeLanche(item.id)
+			this.apiResponseNotification(resp)
+		},
+		async edit(item) {
+			await this.editLanche(item)
 		},
 		cancelEdit() {
 			this.resetLancheEdit()
