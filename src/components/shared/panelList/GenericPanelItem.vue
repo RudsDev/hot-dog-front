@@ -3,7 +3,12 @@
 		<div class="component-content">
 			<div class="">
 				<div class="row">
-					<p v-for="(text, i) in texts" :key="i" class="item-text">
+					<p
+						v-for="(text, i) in texts"
+						:key="i"
+						class="item-text"
+						:title="text"
+					>
 						{{ text }}
 					</p>
 					<div class="actions-container">
@@ -72,6 +77,7 @@ export default {
 				margin: 0;
 				white-space: nowrap;
 				text-overflow: ellipsis;
+				overflow: hidden;
 				&:last-of-type {
 					text-align: center;
 				}
