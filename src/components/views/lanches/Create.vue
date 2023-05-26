@@ -43,14 +43,10 @@
 									</div>
 
 									<div class="mini-list">
-										<generic-list
+										<generic-compact-list
 											v-if="ingredientesAdicionados.length"
-											:key="ingredientesAdicionados.length"
 											:items="ingredientesAdicionados"
 											:dataMap="dataMapIng"
-											:editFunction="'editContact'"
-											:removeFunction="'removeContact'"
-											:showActions="false"
 										/>
 										<p v-else>Sem ingredientes adicionados</p>
 									</div>
@@ -98,7 +94,7 @@
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
 import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
-import GenericList from '@/components/shared/GenericList.vue'
+import GenericCompactList from '@/components/shared/GenericCompactList.vue'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/lanche.js'
 import notification from '@/mixins/notificationsMixin.js'
@@ -109,7 +105,7 @@ import { currencyFormat } from '@/helpers/moeda'
 export default {
 	nome: 'CreateLanche',
 	components: {
-		GenericList,
+		GenericCompactList,
 		GenericPanelList,
 		ErrorsMessages,
 		GenericPanelAdder
@@ -131,8 +127,8 @@ export default {
 				{ value: 'preco', money: true }
 			],
 			dataMapIng: [
-				{ header: 'Nome', keys: ['nome'] },
-				{ header: 'Preço R$', keys: ['precoTotal'] }
+				{ header: 'Nome', key: 'nome', money: false },
+				{ header: 'Preço R$', key: 'precoTotal', money: true }
 			],
 			errors: null
 		}
