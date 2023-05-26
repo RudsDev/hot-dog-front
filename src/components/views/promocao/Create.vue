@@ -32,7 +32,7 @@
 												id="nome"
 												v-model="nome"
 												type="text"
-												class="input is-small"
+												class="input"
 												:class="{ 'is-danger': $v.nome.$error }"
 												placeholder="Nome da promoção"
 												@blur="$v.nome.$touch()"
@@ -45,7 +45,7 @@
 
 										<div class="control is-expanded column is-two-quarters">
 											<label class="label">Cálculo aplicado</label>
-											<div class="select is-small">
+											<div class="select">
 												<select @change="changeSelect">
 													<option
 														v-for="(tipo, i) in tiposCalculo"
@@ -64,7 +64,7 @@
 												id="baseCalculo"
 												v-model="baseCalculo"
 												type="number"
-												class="input is-small"
+												class="input"
 												:class="{ 'is-danger': $v.baseCalculo.$error }"
 												placeholder="Base Cálculo"
 												@blur="$v.baseCalculo.$touch()"
@@ -77,13 +77,10 @@
 									</div>
 
 									<div class="mini-list">
-										<generic-list
-											v-if="lanches.length"
-											:key="lanches.length"
-											:items="lanches"
-											:dataMap="dataMapLan"
-											:showActions="false"
-											:monetary="true"
+										<generic-compact-list
+											v-if="lanchesAdded.length"
+											:items="lanchesAdded"
+											:dataMap="dataMapLan_"
 										/>
 										<p v-else>Sem lanches adicionados</p>
 									</div>
@@ -130,10 +127,10 @@
 import { mapState, mapActions } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
 import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
+import GenericCompactList from '@/components/shared/GenericCompactList.vue'
 import validation from '@/mixins/validations/promocao.js'
 import notification from '@/mixins/notificationsMixin.js'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
-import GenericList from '@/components/shared/GenericList.vue'
 import GenericPanelAdder from '@/components/shared/GenericPanelAdder.vue'
 import { calculaTotal } from '@/helpers/calculo'
 import { currencyFormat } from '@/helpers/moeda'
@@ -142,8 +139,8 @@ export default {
 	nome: 'CreatePromocao',
 	components: {
 		ErrorsMessages,
-		GenericList,
 		GenericPanelList,
+		GenericCompactList,
 		GenericPanelAdder
 	},
 	mixins: [validation, notification],
@@ -159,9 +156,13 @@ export default {
 				{ value: 'nome', money: false },
 				{ value: 'preco', money: true }
 			],
+			dataMapLan_: [
+				{ header: 'Nome', key: 'nome', money: false },
+				{ header: 'Qtd', key: 'qtd', money: false },
+				{ header: 'Total R$', key: 'precoTotal', money: true }
+			],
 			dataMapLan: [
 				{ header: 'Nome', keys: ['nome'] },
-				{ header: 'Unit. R$', keys: ['precoUnitario'] },
 				{ header: 'Qtd', keys: ['qtd'] },
 				{ header: 'Total R$', keys: ['precoTotal'] }
 			],
@@ -198,6 +199,18 @@ export default {
 					nome: i.nome,
 					qtd: i.qtd
 				}))
+			}
+		},
+		lanchesAdded: {
+			get() {
+				return this.lanches
+					.filter(i => i.qtd > 0)
+					.map(i => ({
+						id: i.id,
+						nome: i.nome,
+						precoTotal: i.qtd * i.preco,
+						qtd: i.qtd
+					}))
 			}
 		},
 		total: {
