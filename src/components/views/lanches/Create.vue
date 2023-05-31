@@ -1,91 +1,86 @@
 <template>
 	<div id="create-lanche-component-content" class="component-view-root">
-		<div class="form-container">
-			<form>
-				<div class="container-internal-components">
-					<div class="left">
-						<generic-panel-adder
-							:headerText="'Ingredientes'"
-							:updateActionName="'ingredientes/updateQtdIngredientes'"
-							:items="ingredientes"
-						/>
-					</div>
+		<div class="container is-fluid is-variable is-4 m-0 p-2 columns">
+			<div class="column">
+				<article class="panel is-info">
+					<p class="panel-heading">
+						Detalhes do lanche
+					</p>
 
-					<div class="center">
-						<div class="card">
-							<div class="card-content">
-								<div class="media">
-									<div class="media-content">
-										<p class="title is-4">Detalhes do lanche</p>
-										<p class="subtitle is-8">
-											<span>Total: R$ {{ total }}</span>
-										</p>
-									</div>
-								</div>
+					<div class="panel-sub-heading">
+						<div class="panel-tabs">
+							<p class="subtitle is-8 p-4">
+								<span>Total: R$ {{ total }}</span>
+							</p>
+						</div>
 
-								<div class="content">
-									<div class="columns field is-grouped form-group">
-										<div class="control is-expanded column is-12">
-											<input
-												id="nome"
-												v-model="nome"
-												type="text"
-												class="input"
-												:class="{ 'is-danger': $v.nome.$error }"
-												placeholder="Nome do lanche"
-												@blur="$v.nome.$touch()"
-											/>
-											<errors-messages
-												:hasError="!!$vNome.hasError"
-												:items="$vNome.items"
-											/>
-										</div>
-									</div>
-
-									<div class="mini-list">
-										<generic-compact-list
-											v-if="ingredientesAdicionados.length"
-											:items="ingredientesAdicionados"
-											:dataMap="dataMapIng"
-										/>
-										<p v-else>Sem ingredientes adicionados</p>
-									</div>
-
-									<div class="control column button-container column is-12">
-										<button
-											type="submit"
-											class="button is-secondary"
-											:disabled="disableSave"
-											@click.stop.prevent="save()"
-										>
-											Cadastrar
-										</button>
-
-										<button
-											class="button is-primary"
-											:disabled="!ingredientesAdicionados.length"
-											@click.stop.prevent="vender"
-										>
-											Vender
-										</button>
-									</div>
-								</div>
-							</div>
+						<div class="panel-block pt-4">
+							<p class="control">
+								<input
+									id="nome"
+									v-model="nome"
+									type="text"
+									class="input"
+									:class="{ 'is-danger': $v.nome.$error }"
+									placeholder="Nome do lanche"
+									@blur="$v.nome.$touch()"
+								/>
+								<errors-messages
+									:hasError="!!$vNome.hasError"
+									:items="$vNome.items"
+								/>
+							</p>
 						</div>
 					</div>
 
-					<div class="right">
-						<generic-panel-list
-							:key="lanches.length"
-							:items="lanches"
-							:headerText="'Lanches'"
-							:removeFunction="remove"
-							:editFunction="edit"
-							:keyMap="dataMap"
+					<div class="panel-content-container mt-5">
+						<generic-panel-content-checker
+							:key="ingredientes.length"
+							:headerText="'Ingredientes'"
+							:updateActionName="'ingredientes/updateQtdIngredientes'"
+							:items="ingredientes"
+							:keyMap="dataMapIng"
 						/>
 					</div>
-				</div>
-			</form>
+
+					<div class="panel-block panel-footer">
+						<div class="control column button-container column is-12">
+							<button
+								type="submit"
+								class="button is-secondary"
+								:disabled="disableSave"
+								@click.stop.prevent="save()"
+							>
+								Cadastrar
+							</button>
+
+							<button
+								class="button is-primary"
+								:disabled="!ingredientesAdicionados.length"
+								@click.stop.prevent="vender"
+							>
+								Vender
+							</button>
+						</div>
+					</div>
+				</article>
+			</div>
+
+			<div class="column is-two-thirds">
+				<article class="panel is-info">
+					<p class="panel-heading">
+						Lanches
+					</p>
+
+					<generic-panel-content-counter
+						:key="lanches.length"
+						:items="lanches"
+						:removeFunction="remove"
+						:editFunction="edit"
+						:keyMap="dataMap"
+					/>
+				</article>
+			</div>
 		</div>
 	</div>
 </template>
@@ -93,22 +88,20 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
-import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
-import GenericCompactList from '@/components/shared/GenericCompactList.vue'
+import GenericPanelContentCounter from '@/components/shared/panelList/GenericPanelContentCounter.vue'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/lanche.js'
 import notification from '@/mixins/notificationsMixin.js'
-import GenericPanelAdder from '@/components/shared/GenericPanelAdder.vue'
+import GenericPanelContentChecker from '@/components/shared/GenericPanelContentChecker.vue'
 import { calculaTotal } from '@/helpers/calculo'
 import { currencyFormat } from '@/helpers/moeda'
 
 export default {
 	nome: 'CreateLanche',
 	components: {
-		GenericCompactList,
-		GenericPanelList,
+		GenericPanelContentCounter,
 		ErrorsMessages,
-		GenericPanelAdder
+		GenericPanelContentChecker
 	},
 	mixins: [validation, notification],
 	beforeRouteEnter(to, from, next) {
@@ -127,8 +120,8 @@ export default {
 				{ value: 'preco', money: true }
 			],
 			dataMapIng: [
-				{ header: 'Nome', key: 'nome', money: false },
-				{ header: 'Preço R$', key: 'precoTotal', money: true }
+				{ value: 'nome', money: false },
+				{ value: 'preco', money: true }
 			],
 			errors: null
 		}
@@ -237,7 +230,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// #create-lanche-component-content {}
+#create-lanche-component-content {
+	.columns {
+		height: 100%;
+	}
+	.panel {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		.panel-tabs {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+		}
+		.panel-sub-heading {
+			height: 120px;
+		}
+		.panel-content-container {
+			flex-grow: 1;
+		}
+		.panel-footer {
+			position: relative;
+			height: 60px;
+		}
+	}
+}
 </style>
-
-<style lang="scss" scoped></style>
