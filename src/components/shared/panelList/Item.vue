@@ -1,5 +1,5 @@
 <template>
-	<div class="content-item-component">
+	<div class="item-component">
 		<div class="component-content">
 			<div class="row">
 				<p v-for="(text, i) in texts" :key="i" class="item-text" :title="text">
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-	name: 'ContentItem',
+	name: 'Item',
 	props: {
 		texts: {
 			type: Array,
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-item-component {
+.item-component {
 	flex-grow: 1;
 	.component-content {
 		.row {
