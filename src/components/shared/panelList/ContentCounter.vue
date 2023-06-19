@@ -1,5 +1,5 @@
 <template>
-	<div id="generic-panel-content-counter-component">
+	<div id="content-counter-component">
 		<div class="panel-content">
 			<a
 				v-for="(item, index) in items"
@@ -20,7 +20,7 @@
 import GenericPanelItem from './GenericPanelItem.vue'
 import { currencyFormatBr } from '@/helpers/moeda'
 export default {
-	name: 'GenericPanelContentCounter',
+	name: 'ContentCounter',
 	components: { GenericPanelItem },
 	mixins: [],
 	props: {
@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 $heading-height: 55px;
-#generic-panel-content-counter-component {
+#content-counter-component {
 	height: 100%;
 	&.panel-content {
 		max-height: 547px;
