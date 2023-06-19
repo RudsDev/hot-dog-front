@@ -1,5 +1,5 @@
 <template>
-	<div id="generic-panel-content-checker" class="panel-content">
+	<div id="list-items-counter-checker" class="panel-content">
 		<a v-for="(item, index) in items" :key="index" class="panel-block">
 			<counter
 				v-if="counter"
@@ -25,7 +25,7 @@ import ItemChecker from './panelList/ItemChecker.vue'
 import { currencyFormatBr } from '@/helpers/moeda'
 
 export default {
-	name: 'GenericPanelContentChecker',
+	name: 'ListItemsCounterChecker',
 	components: { Counter, ItemChecker },
 	mixins: [],
 	props: {
@@ -74,7 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 $heading-height: 55px;
-#generic-panel-content-checker {
+#list-items-counter-checker {
 	background-color: transparent;
 	height: 100%;
 	display: flex;

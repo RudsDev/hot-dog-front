@@ -34,7 +34,7 @@
 					</div>
 
 					<div class="panel-content-container mt-5">
-						<generic-panel-content-checker
+						<list-items-counter-checker
 							:key="ingredientes.length"
 							:headerText="'Ingredientes'"
 							:updateActionName="'ingredientes/updateQtdIngredientes'"
@@ -92,7 +92,7 @@ import ListItems from '@/components/shared/panelList/ListItems.vue'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/lanche.js'
 import notification from '@/mixins/notificationsMixin.js'
-import GenericPanelContentChecker from '@/components/shared/GenericPanelContentChecker.vue'
+import ListItemsCounterChecker from '@/components/shared/ListItemsCounterChecker.vue'
 import { calculaTotal } from '@/helpers/calculo'
 import { currencyFormat } from '@/helpers/moeda'
 
@@ -101,7 +101,7 @@ export default {
 	components: {
 		ListItems,
 		ErrorsMessages,
-		GenericPanelContentChecker
+		ListItemsCounterChecker
 	},
 	mixins: [validation, notification],
 	beforeRouteEnter(to, from, next) {
