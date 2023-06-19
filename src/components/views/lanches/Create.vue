@@ -66,7 +66,7 @@
 				</article>
 			</div>
 
-			<div class="column is-two-thirds">
+			<div class="column">
 				<article class="panel is-info">
 					<p class="panel-heading">
 						Lanches
@@ -233,6 +233,7 @@ export default {
 #create-lanche-component-content {
 	.columns {
 		height: 100%;
+		flex-wrap: wrap;
 	}
 	.panel {
 		display: flex;
