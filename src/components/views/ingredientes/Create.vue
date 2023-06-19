@@ -56,7 +56,7 @@
 				</div>
 			</form>
 
-			<generic-panel-list
+			<list
 				:key="ingredientes.length"
 				:items="ingredientes"
 				:headerText="'Ingredientes'"
@@ -71,7 +71,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
-import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
+import List from '@/components/shared/panelList/List.vue'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/ingrediente.js'
 import notification from '@/mixins/notificationsMixin.js'
@@ -79,7 +79,7 @@ import notification from '@/mixins/notificationsMixin.js'
 export default {
 	nome: 'CreateIngrediente',
 	components: {
-		GenericPanelList,
+		List,
 		ErrorsMessages
 	},
 	mixins: [validation, notification],

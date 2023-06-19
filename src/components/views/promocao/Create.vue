@@ -108,7 +108,7 @@
 					</div>
 
 					<div class="right">
-						<generic-panel-list
+						<list
 							:key="promocoes.length"
 							:items="promocoes"
 							:headerText="'Promoções'"
@@ -126,7 +126,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
-import GenericPanelList from '@/components/shared/panelList/GenericPanelList.vue'
+import List from '@/components/shared/panelList/List.vue'
 import GenericCompactList from '@/components/shared/GenericCompactList.vue'
 import validation from '@/mixins/validations/promocao.js'
 import notification from '@/mixins/notificationsMixin.js'
@@ -139,7 +139,7 @@ export default {
 	nome: 'CreatePromocao',
 	components: {
 		ErrorsMessages,
-		GenericPanelList,
+		List,
 		GenericCompactList,
 		GenericPanelAdder
 	},

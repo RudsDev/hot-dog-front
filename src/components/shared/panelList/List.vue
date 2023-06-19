@@ -11,7 +11,7 @@
 						:key="index"
 						class="panel-block is-active"
 					>
-						<content-item
+						<item
 							:texts="mappedTexts(index)"
 							:removeFunction="() => removeFunction(item)"
 							:editFunction="() => editFunction(item)"
@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import ContentItem from './ContentItem.vue'
+import Item from './Item.vue'
 import { currencyFormatBr } from '@/helpers/moeda'
 export default {
-	name: 'GenericPanelList',
-	components: { ContentItem },
+	name: 'List',
+	components: { Item },
 	mixins: [],
 	props: {
 		items: {
