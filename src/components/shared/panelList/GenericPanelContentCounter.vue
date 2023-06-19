@@ -1,5 +1,5 @@
 <template>
-	<div id="generic-panel-content-list-component">
+	<div id="generic-panel-content-counter-component">
 		<div class="panel-content">
 			<a
 				v-for="(item, index) in items"
@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 $heading-height: 55px;
-#generic-panel-content-list-component {
+#generic-panel-content-counter-component {
 	height: 100%;
 	&.panel-content {
 		max-height: 547px;
