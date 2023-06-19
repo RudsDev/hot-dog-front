@@ -72,7 +72,7 @@
 						Lanches
 					</p>
 
-					<content-counter
+					<list-items
 						:key="lanches.length"
 						:items="lanches"
 						:removeFunction="remove"
@@ -88,7 +88,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { mapFields } from 'vuex-map-fields'
-import ContentCounter from '@/components/shared/panelList/ContentCounter.vue'
+import ListItems from '@/components/shared/panelList/ListItems.vue'
 import ErrorsMessages from '@/components/shared/ErrorsMessages.vue'
 import validation from '@/mixins/validations/lanche.js'
 import notification from '@/mixins/notificationsMixin.js'
@@ -99,7 +99,7 @@ import { currencyFormat } from '@/helpers/moeda'
 export default {
 	nome: 'CreateLanche',
 	components: {
-		ContentCounter,
+		ListItems,
 		ErrorsMessages,
 		GenericPanelContentChecker
 	},

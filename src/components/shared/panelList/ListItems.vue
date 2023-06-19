@@ -1,5 +1,5 @@
 <template>
-	<div id="content-counter-component">
+	<div id="list-items-component">
 		<div class="panel-content">
 			<a
 				v-for="(item, index) in items"
@@ -20,7 +20,7 @@
 import Item from './Item.vue'
 import { currencyFormatBr } from '@/helpers/moeda'
 export default {
-	name: 'ContentCounter',
+	name: 'ListItems',
 	components: { Item },
 	mixins: [],
 	props: {
@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 $heading-height: 55px;
-#content-counter-component {
+#list-items-component {
 	height: 100%;
 	&.panel-content {
 		max-height: 547px;
