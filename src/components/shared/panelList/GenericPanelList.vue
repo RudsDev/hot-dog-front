@@ -72,7 +72,7 @@ export default {
 $heading-height: 55px;
 #generic-list-component-content {
 	height: 100%;
-	width: fit-content;
+	width: inherit;
 	.content {
 		height: 100%;
 		.panel {
