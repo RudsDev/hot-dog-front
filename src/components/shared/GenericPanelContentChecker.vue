@@ -7,7 +7,7 @@
 				:qtd="item.qtd"
 				@qtd-update="data => setQtd(index, data)"
 			/>
-			<panel-item-checker
+			<item-checker
 				v-else
 				:id="item.id"
 				:texts="mappedTexts(index)"
@@ -21,12 +21,12 @@
 <script>
 import store from '@/store/store'
 import Counter from '@/components/shared/Counter.vue'
-import PanelItemChecker from './panelList/PanelItemChecker.vue'
+import ItemChecker from './panelList/ItemChecker.vue'
 import { currencyFormatBr } from '@/helpers/moeda'
 
 export default {
 	name: 'GenericPanelContentChecker',
-	components: { Counter, PanelItemChecker },
+	components: { Counter, ItemChecker },
 	mixins: [],
 	props: {
 		items: {

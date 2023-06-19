@@ -1,5 +1,5 @@
 <template>
-	<div class="panel-item-checker is-flex is-flex-grow-1">
+	<div class="item-checker is-flex is-flex-grow-1">
 		<div class="component-content is-flex-grow-1">
 			<div class="">
 				<div class="row">
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-	name: 'PanelItemChecker',
+	name: 'ItemChecker',
 	props: {
 		texts: {
 			type: Array,
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.panel-item-checker {
+.item-checker {
 	.component-content {
 		.row {
 			margin: 0;
